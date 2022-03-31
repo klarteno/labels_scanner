@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.work:work-runtime:2.2.0@aar" type="AndroidModuleLibraryType">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../../../Gradle/gradle-7.4/caches/transforms-2/files-2.1/87e117a05c5d91fb1e5bb32d023ed2a5/work-runtime-2.2.0/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../../../../Gradle/gradle-7.4/caches/transforms-2/files-2.1/87e117a05c5d91fb1e5bb32d023ed2a5/work-runtime-2.2.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
