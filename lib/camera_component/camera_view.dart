@@ -41,8 +41,8 @@ class _CameraViewState extends State<CameraView> {
     super.initState();
 
     _imagePicker = ImagePicker();
-    for (var i = 0; i < cameras.length; i++) {
-      if (cameras[i].lensDirection == widget.initialDirection) {
+    for (var i = 0; i < mobileCameras.length; i++) {
+      if (mobileCameras[i].lensDirection == widget.initialDirection) {
         _cameraIndex = i;
       }
     }
@@ -84,7 +84,7 @@ class _CameraViewState extends State<CameraView> {
 
   Widget? _floatingActionButton() {
     if (_mode == ScreenMode.gallery) return null;
-    if (cameras.length == 1) return null;
+    if (mobileCameras.length == 1) return null;
     return Container(
         height: 70.0,
         width: 70.0,
@@ -201,7 +201,7 @@ class _CameraViewState extends State<CameraView> {
   }
 
   Future _startLiveFeed() async {
-    final camera = cameras[_cameraIndex];
+    final camera = mobileCameras[_cameraIndex];
     _controller = CameraController(
       camera,
       ResolutionPreset.low,
@@ -257,7 +257,7 @@ class _CameraViewState extends State<CameraView> {
     final Size imageSize =
         Size(image.width.toDouble(), image.height.toDouble());
 
-    final camera = cameras[_cameraIndex];
+    final camera = mobileCameras[_cameraIndex];
     final imageRotation =
         InputImageRotationMethods.fromRawValue(camera.sensorOrientation) ??
             InputImageRotation.Rotation_0deg;

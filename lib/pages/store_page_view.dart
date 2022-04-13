@@ -3,6 +3,8 @@ import 'package:story_view/story_view.dart';
 
 class StoryPageView extends StatelessWidget {
   final _storyController = StoryController();
+
+  StoryPageView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final controller = StoryController();

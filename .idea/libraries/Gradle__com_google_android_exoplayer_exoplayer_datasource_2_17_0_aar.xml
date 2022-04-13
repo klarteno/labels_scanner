@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.google.android.exoplayer:exoplayer-datasource:2.17.0@aar" type="AndroidModuleLibraryType">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../../../Gradle/gradle-7.4/caches/transforms-2/files-2.1/f357c64724341904aa8dd1e6cfa122cd/jetified-exoplayer-datasource-2.17.0/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../../../../Gradle/gradle-7.4/caches/transforms-2/files-2.1/f357c64724341904aa8dd1e6cfa122cd/jetified-exoplayer-datasource-2.17.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,9 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:labels_scanner/pages/call_screen.dart';
-import 'package:labels_scanner/pages/chat_screen.dart';
-import 'package:labels_scanner/pages/status_screen.dart';
+import 'package:labels_scanner/pages/codes_searching.dart';
+import 'package:labels_scanner/pages/qr_codes.dart';
+import 'package:labels_scanner/pages/bar_codes.dart';
 
 import 'camera_component/barcode_scanner_view.dart';
 
@@ -38,7 +38,7 @@ class _AppHomeState extends State<AppHome> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Labels Scanner"),
+        title: const Text("Labels Scanner"),
         elevation: 0.7,
         bottom: TabBar(
           controller: _tabController,
@@ -61,12 +61,12 @@ class _AppHomeState extends State<AppHome> with SingleTickerProviderStateMixin {
       ),
       body: TabBarView(
         controller: _tabController,
-        children: <Widget>[
+        children: const <Widget>[
           //CameraScreen(widget.cameras!),
           BarcodeScannerView(),
-          ChatScreen(),
-          StatusScreen(),
-          CallsScreen(),
+          QrCodes(),
+          BarCodes(),
+          CodesSearching(),
         ],
       ),
       floatingActionButton: showFab
