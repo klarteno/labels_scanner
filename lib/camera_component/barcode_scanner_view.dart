@@ -3,14 +3,14 @@ import 'package:google_ml_kit/google_ml_kit.dart';
 import 'camera_view.dart';
 import 'painters/barcode_detector_painter.dart';
 
-class BarcodeScannerView extends StatefulWidget {
-  const BarcodeScannerView({Key? key}) : super(key: key);
+class BarCodeScannerView extends StatefulWidget {
+  const BarCodeScannerView({Key? key}) : super(key: key);
 
   @override
-  _BarcodeScannerViewState createState() => _BarcodeScannerViewState();
+  _BarCodeScannerViewState createState() => _BarCodeScannerViewState();
 }
 
-class _BarcodeScannerViewState extends State<BarcodeScannerView> {
+class _BarCodeScannerViewState extends State<BarCodeScannerView> {
   BarcodeScanner barcodeScanner = GoogleMlKit.vision.barcodeScanner();
 
   bool isBusy = false;

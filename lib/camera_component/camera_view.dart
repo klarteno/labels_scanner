@@ -3,15 +3,20 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:labels_scanner/app_component/nested_navigation/app_component.dart';
+import 'package:labels_scanner/app_component/nested_navigation/app_navigator.dart';
+import 'package:labels_scanner/app_component/nested_navigation/models/TypedSegment.dart';
+import 'package:riverpod_navigator/riverpod_navigator.dart';
 
-import '../main.dart';
+import '../../../general_providers/camera_provider.dart';
 
 enum ScreenMode { liveFeed, gallery }
 
-class CameraView extends StatefulWidget {
-  const CameraView(
+class CameraView extends ConsumerStatefulWidget {
+  CameraView(
       {Key? key,
       required this.title,
       required this.customPaint,
@@ -24,11 +29,13 @@ class CameraView extends StatefulWidget {
   final Function(InputImage inputImage) onImage;
   final CameraLensDirection initialDirection;
 
+  final BarcodeScanner barcodeScanner = GoogleMlKit.vision.barcodeScanner();
+
   @override
-  _CameraViewState createState() => _CameraViewState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _CameraViewState();
 }
 
-class _CameraViewState extends State<CameraView> {
+class _CameraViewState extends ConsumerState<CameraView> {
   ScreenMode _mode = ScreenMode.liveFeed;
   CameraController? _controller;
   File? _image;
@@ -36,17 +43,39 @@ class _CameraViewState extends State<CameraView> {
   int _cameraIndex = 0;
   double zoomLevel = 0.0, minZoomLevel = 0.0, maxZoomLevel = 0.0;
 
+  List<CameraDescription>? getMobileCameras() {
+    return ref.watch(mobileCamerasPrefsDataProvider)?.mobileCameras;
+  }
+
   @override
   void initState() {
     super.initState();
-
+/*
     _imagePicker = ImagePicker();
-    for (var i = 0; i < mobileCameras.length; i++) {
+    List<CameraDescription>? mobileCameras = getMobileCameras();
+
+    for (var i = 0; i < mobileCameras!.length; i++) {
+      if (mobileCameras[i].lensDirection == widget.initialDirection) {
+        _cameraIndex = i;
+      }
+    }
+    _startLiveFeed();*/
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    _imagePicker = ImagePicker();
+    List<CameraDescription>? mobileCameras = getMobileCameras();
+
+    for (var i = 0; i < mobileCameras!.length; i++) {
       if (mobileCameras[i].lensDirection == widget.initialDirection) {
         _cameraIndex = i;
       }
     }
     _startLiveFeed();
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -74,6 +103,19 @@ class _CameraViewState extends State<CameraView> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: _switchScreenMode22,
+              child: Icon(
+                _mode == ScreenMode.liveFeed
+                    ? Icons.photo_album_outlined
+                    : (Platform.isIOS
+                        ? Icons.photo_album_outlined
+                        : Icons.photo_album_outlined),
+              ),
+            ),
+          ),
         ],
       ),
       body: _body(),
@@ -84,8 +126,11 @@ class _CameraViewState extends State<CameraView> {
 
   Widget? _floatingActionButton() {
     if (_mode == ScreenMode.gallery) return null;
-    if (mobileCameras.length == 1) return null;
-    return Container(
+
+    List<CameraDescription>? mobileCameras = getMobileCameras();
+    if (mobileCameras!.length == 1) return null;
+
+    return SizedBox(
         height: 70.0,
         width: 70.0,
         child: FloatingActionButton(
@@ -147,7 +192,7 @@ class _CameraViewState extends State<CameraView> {
   Widget _galleryBody() {
     return ListView(shrinkWrap: true, children: [
       _image != null
-          ? Container(
+          ? SizedBox(
               height: 400,
               width: 400,
               child: Stack(
@@ -180,11 +225,13 @@ class _CameraViewState extends State<CameraView> {
   }
 
   Future _getImage(ImageSource source) async {
-    final pickedFile = await _imagePicker?.getImage(source: source);
+    final pickedFile = await _imagePicker?.pickImage(source: source);
     if (pickedFile != null) {
       _processPickedFile(pickedFile);
     } else {
-      print('No image selected.');
+      if (kDebugMode) {
+        print('No image selected.');
+      }
     }
     setState(() {});
   }
@@ -200,8 +247,26 @@ class _CameraViewState extends State<CameraView> {
     setState(() {});
   }
 
+  void _switchScreenMode22() async {
+    if (_mode == ScreenMode.liveFeed) {
+      _mode = ScreenMode.gallery;
+      await _stopLiveFeed();
+    }
+
+    setState(() {});
+
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (_) => ProviderScope(
+              overrides: riverpodNavigatorOverrides(
+                  [const HomeComponentsTabsSegment()], AppNavigator.new),
+              child: const AppComponent(),
+            )));
+  }
+
   Future _startLiveFeed() async {
-    final camera = mobileCameras[_cameraIndex];
+    List<CameraDescription>? mobileCameras = getMobileCameras();
+    final camera = mobileCameras![_cameraIndex];
+
     _controller = CameraController(
       camera,
       ResolutionPreset.low,
@@ -239,7 +304,7 @@ class _CameraViewState extends State<CameraView> {
     await _startLiveFeed();
   }
 
-  Future _processPickedFile(PickedFile pickedFile) async {
+  Future _processPickedFile(XFile pickedFile) async {
     setState(() {
       _image = File(pickedFile.path);
     });
@@ -257,7 +322,9 @@ class _CameraViewState extends State<CameraView> {
     final Size imageSize =
         Size(image.width.toDouble(), image.height.toDouble());
 
-    final camera = mobileCameras[_cameraIndex];
+    List<CameraDescription>? mobileCameras = getMobileCameras();
+    final camera = mobileCameras![_cameraIndex];
+
     final imageRotation =
         InputImageRotationMethods.fromRawValue(camera.sensorOrientation) ??
             InputImageRotation.Rotation_0deg;

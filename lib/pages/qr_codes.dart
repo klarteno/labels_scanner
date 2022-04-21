@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:labels_scanner/my_products/tags/view/tags_page.dart';
 
 class QrCodes extends StatefulWidget {
   const QrCodes({Key? key}) : super(key: key);
@@ -12,6 +13,6 @@ class QrCodes extends StatefulWidget {
 class QrCodesState extends State<QrCodes> {
   @override
   Widget build(BuildContext context) {
-    return const SizedBox.shrink();
+    return const TagsPage();
   }
 }
