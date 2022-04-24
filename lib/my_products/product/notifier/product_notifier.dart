@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:labels_scanner/myshopify/myshopify_repository/model/product.dart';
-import 'package:labels_scanner/myshopify/myshopify_repository/myshopify_repository.dart';
+import 'package:materials_products_repository/my_materials_repository.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 part 'product_state.dart';
@@ -8,7 +7,7 @@ part 'product_state.dart';
 class ProductNotifier extends StateNotifier<ProductState> {
   ProductNotifier(this._myShopifyRepository) : super(const ProductState());
 
-  final MyShopifyRepository _myShopifyRepository;
+  final MyMaterialsProductsRepository _myShopifyRepository;
 
   Future<void> getProductWithTag({required String tag}) async {
     try {

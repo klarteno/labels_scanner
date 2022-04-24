@@ -25,6 +25,7 @@ class _TagsPageState extends ConsumerState<TagsPage> {
   @override
   Widget build(BuildContext context) {
     final tagNotifier = ref.watch(tagsProvider);
+
     final color = Theme.of(context).primaryColor;
     return Scaffold(
       appBar: AppBar(
@@ -76,7 +77,7 @@ class _TagsPageState extends ConsumerState<TagsPage> {
                             shadowColor: color,
                             child: ListTile(
                               onTap: () => Navigator.of(context).pushNamed(
-                                  MyshopifyPages.product,
+                                  MyshopifyPagesPath.product,
                                   arguments: tagNotifier.tags[index].name!),
                               title: Text(
                                 tagNotifier.tags[index].name!,

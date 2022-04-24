@@ -4,7 +4,7 @@ import 'package:labels_scanner/listing_component/tags/tags.dart';
 import 'package:flutter/material.dart';
 
 /// Dengun MyshopifyPages for the Dengun route
-class MyshopifyPages {
+class MyshopifyPagesPath {
   /// The first page when the app loads
   static const String tags = '/';
 
@@ -20,20 +20,21 @@ class AppRouter {
   ///list of all the app routes
   static Route route(RouteSettings settings) {
     final args = settings.arguments;
+
     switch (settings.name) {
-      case MyshopifyPages.tags:
+      case MyshopifyPagesPath.tags:
         return MaterialPageRoute<Widget>(
           builder: (context) {
             return const TagsPage();
           },
         );
-      case MyshopifyPages.product:
+      case MyshopifyPagesPath.product:
         return MaterialPageRoute<Widget>(
           builder: (context) {
             return ProductPage(tag: args!.toString());
           },
         );
-      case MyshopifyPages.details:
+      case MyshopifyPagesPath.details:
         return MaterialPageRoute<Widget>(
           builder: (context) {
             return DetailsPage(productId: args!);

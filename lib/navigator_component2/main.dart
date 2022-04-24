@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:labels_scanner/my_products/tags/tags_routers/tags_routers.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class TagsApp extends StatelessWidget {
-  const TagsApp({Key? key}) : super(key: key);
+import 'comp12.dart';
+
+void main() {
+  runApp(
+    const ProviderScope(child: Home()),
+  );
+}
+
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      title: 'xxxxxxxxxx',
       theme: ThemeData(
-          scaffoldBackgroundColor: Colors.black,
+          scaffoldBackgroundColor: Colors.white,
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           appBarTheme: const AppBarTheme(
@@ -27,9 +35,9 @@ class TagsApp extends StatelessWidget {
                   height: 1,
                   fontFamily: "alex",
                   fontWeight: FontWeight.w700))),
-      themeMode: ThemeMode.system,
-      onGenerateRoute: TagsRouter.route,
-      initialRoute: MyProductsPages.tags,
+      //onGenerateRoute: TagsRouter.route,
+      //initialRoute: MyProductsPages.tags,
+      home: const Home12(),
     );
   }
 }

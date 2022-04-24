@@ -20,7 +20,7 @@ class App extends StatelessWidget {
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.bahamaBlue),
       themeMode: ThemeMode.system,
       onGenerateRoute: AppRouter.route,
-      initialRoute: MyshopifyPages.tags,
+      initialRoute: MyshopifyPagesPath.tags,
     );
   }
 }

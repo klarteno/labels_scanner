@@ -29,7 +29,7 @@ class ProductCard extends StatelessWidget {
     final color = Theme.of(context).primaryColor;
     return GestureDetector(
       onTap: () => Navigator.of(context)
-          .pushNamed(MyshopifyPages.details, arguments: id!),
+          .pushNamed(MyshopifyPagesPath.details, arguments: id!),
       child: Card(
         elevation: 4,
         shape: RoundedRectangleBorder(
@@ -120,7 +120,7 @@ class ProductCard extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () => Navigator.of(context)
-                      .pushNamed(MyshopifyPages.details, arguments: id!),
+                      .pushNamed(MyshopifyPagesPath.details, arguments: id!),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),

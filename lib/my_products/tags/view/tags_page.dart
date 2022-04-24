@@ -44,7 +44,7 @@ class _TagsPageState extends ConsumerState<TagsPage> {
                   hintText: 'Search',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.white,
                     ),
                   ),
