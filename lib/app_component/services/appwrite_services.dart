@@ -1,11 +1,10 @@
-import 'dart:io';
 import 'dart:convert';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 import 'package:labels_scanner/app_component/data/store.dart';
+import 'package:uuid/uuid.dart';
 
 class AppwriteService with ChangeNotifier {
   final appWriteEndPoint = 'https://localhost/v1';

@@ -1,5 +1,5 @@
-import 'package:labels_scanner/app_component/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:labels_scanner/app_component/constants.dart';
 
 class AlreadyHaveAnAccountCheck extends StatelessWidget {
   final bool login;

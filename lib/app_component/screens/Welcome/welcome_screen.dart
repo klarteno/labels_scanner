@@ -1,5 +1,5 @@
-import 'package:labels_scanner/app_component/screens/Welcome/components/welcome_screen_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:labels_scanner/app_component/screens/Welcome/components/welcome_screen_widget.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -7,7 +7,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'xxxxxxxxxx',
+      title: 'Welcome to Labels Scanners',
       theme: ThemeData(
           scaffoldBackgroundColor: Colors.black,
           primarySwatch: Colors.blue,

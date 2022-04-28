@@ -1,7 +1,7 @@
-import 'package:labels_scanner/auth_component/data/auth_state.dart';
-import 'package:labels_scanner/auth_component/notifier/auth_notifier.dart';
-import 'package:labels_scanner/services/auth/auth_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:labels_scanner/app_component/auth_component/data/auth_state.dart';
+import 'package:labels_scanner/app_component/auth_component/notifier/auth_notifier.dart';
+import 'package:labels_scanner/services/auth/auth_service.dart';
 
 // Service Provider
 final _authServiceProvider =

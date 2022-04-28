@@ -1,10 +1,10 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:labels_scanner/auth_component/providers/auth_providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:labels_scanner/app_component/auth_component/providers/auth_providers.dart';
 import 'package:labels_scanner/general_providers/config_providers.dart';
 import 'package:labels_scanner/models/classes/task.dart';
 import 'package:labels_scanner/services/appwrite.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class ITasksService {
   Stream<RealtimeMessage> getTasksStream();

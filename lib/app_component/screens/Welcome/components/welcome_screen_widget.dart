@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:labels_scanner/app_component/screens/Login/login_screen.dart';
 import 'package:labels_scanner/app_component/screens/Signup/signup_screen.dart';
 import 'package:labels_scanner/app_component/screens/Welcome/components/background.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class WelcomeScreenWidget extends StatelessWidget {
   const WelcomeScreenWidget({Key? key}) : super(key: key);

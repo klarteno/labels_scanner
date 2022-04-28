@@ -6,10 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:labels_scanner/app_component/nested_navigation/app_component.dart';
-import 'package:labels_scanner/app_component/nested_navigation/app_navigator.dart';
-import 'package:labels_scanner/app_component/nested_navigation/models/TypedSegment.dart';
-import 'package:riverpod_navigator/riverpod_navigator.dart';
 
 import '../../../general_providers/camera_provider.dart';
 
@@ -106,7 +102,7 @@ class _CameraViewState extends ConsumerState<CameraView> {
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: GestureDetector(
-              onTap: _switchScreenMode22,
+              onTap: _switchScreenMode,
               child: Icon(
                 _mode == ScreenMode.liveFeed
                     ? Icons.photo_album_outlined
@@ -245,22 +241,6 @@ class _CameraViewState extends ConsumerState<CameraView> {
       await _startLiveFeed();
     }
     setState(() {});
-  }
-
-  void _switchScreenMode22() async {
-    if (_mode == ScreenMode.liveFeed) {
-      _mode = ScreenMode.gallery;
-      await _stopLiveFeed();
-    }
-
-    setState(() {});
-
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (_) => ProviderScope(
-              overrides: riverpodNavigatorOverrides(
-                  [const HomeComponentsTabsSegment()], AppNavigator.new),
-              child: const AppComponent(),
-            )));
   }
 
   Future _startLiveFeed() async {

@@ -1,11 +1,11 @@
-import 'package:labels_scanner/auth_component/providers/auth_providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:labels_scanner/app_component/auth_component/providers/auth_providers.dart';
+import 'package:labels_scanner/models/classes/task.dart';
+import 'package:labels_scanner/services/tasks/tasks_service.dart';
 import 'package:labels_scanner/tasks/data/task_editing_state.dart';
 import 'package:labels_scanner/tasks/data/tasks_list_state.dart';
 import 'package:labels_scanner/tasks/notifier/task_editing_notifier.dart';
 import 'package:labels_scanner/tasks/notifier/task_list_notifier.dart';
-import 'package:labels_scanner/models/classes/task.dart';
-import 'package:labels_scanner/services/tasks/tasks_service.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Service
 

@@ -1,17 +1,17 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:labels_scanner/app_component/screens/components/already_have_an_account_check.dart';
-import 'package:labels_scanner/app_component/screens/components/rounded_input_field.dart';
-import 'package:labels_scanner/app_component/screens/components/rounded_password_field.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:labels_scanner/app_component/screens/Login/login_screen.dart';
 import 'package:labels_scanner/app_component/screens/Signup/components/background.dart';
 import 'package:labels_scanner/app_component/screens/Signup/components/or_divider.dart';
 import 'package:labels_scanner/app_component/screens/Signup/components/social_icon.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:labels_scanner/app_component/screens/components/already_have_an_account_check.dart';
+import 'package:labels_scanner/app_component/screens/components/rounded_input_field.dart';
+import 'package:labels_scanner/app_component/screens/components/rounded_password_field.dart';
 
 import '../../../app_home.dart';
-import '../../../../auth_component/data/auth_state.dart';
-import '../../../../auth_component/providers/auth_providers.dart';
+import '../../../auth_component/data/auth_state.dart';
+import '../../../auth_component/providers/auth_providers.dart';
 
 class SignUpScreenWidget extends ConsumerStatefulWidget {
   const SignUpScreenWidget({Key? key}) : super(key: key);

@@ -1,11 +1,11 @@
-import 'package:flutter_svg/svg.dart';
-import 'package:labels_scanner/auth_component/data/auth_state.dart';
-import 'package:labels_scanner/auth_component/providers/auth_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:labels_scanner/app_component/auth_component/data/auth_state.dart';
+import 'package:labels_scanner/app_component/auth_component/providers/auth_providers.dart';
+import 'package:labels_scanner/tasks/tasks_list_page.dart';
 
-import '../app_component/screens/Welcome/components/background.dart';
-import '../tasks/tasks_list_page.dart';
+import '../screens/Welcome/components/background.dart';
 
 class AuthPage extends ConsumerStatefulWidget {
   const AuthPage({Key? key}) : super(key: key);

@@ -71,7 +71,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  integration_test:
+    sdk: flutter
+  mockito: ^5.1.0
+  test_api:
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -80,10 +83,14 @@ dev_dependencies:
   flutter_lints: ^1.0.4
   # build_runner: ^2.1.10
 
-  integration_test:
+
   build_runner:
   freezed:
   freezed_annotation:
+
+
+
+
 # run in terminal: flutter pub run build_runner watch --delete-conflicting-outputs
 
 

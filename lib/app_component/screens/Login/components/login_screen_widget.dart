@@ -1,15 +1,14 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:labels_scanner/app_component/screens/Signup/signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:labels_scanner/app_component/screens/Signup/signup_screen.dart';
 import 'package:labels_scanner/app_component/screens/components/already_have_an_account_check.dart';
 import 'package:labels_scanner/app_component/screens/components/rounded_input_field.dart';
 import 'package:labels_scanner/app_component/screens/components/rounded_password_field.dart';
 import 'package:labels_scanner/camera_component/barcode_scanner_view.dart';
 
-import '../../../../auth_component/data/auth_state.dart';
-import '../../../../auth_component/providers/auth_providers.dart';
+import '../../../auth_component/data/auth_state.dart';
+import '../../../auth_component/providers/auth_providers.dart';
 import '../../Signup/components/background.dart';
 
 class LoginScreenWidget extends ConsumerStatefulWidget {

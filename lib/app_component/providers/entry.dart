@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:labels_scanner/app_component/data/entry.dart';
 import 'package:flutter/material.dart';
+import 'package:labels_scanner/app_component/data/entry.dart';
 
 import '../services/client.dart';
 
