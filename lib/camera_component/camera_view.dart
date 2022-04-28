@@ -6,26 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../../general_providers/camera_provider.dart';
+import 'package:labels_scanner/app_component/app_tabs_components/app_tabs_home.dart';
+import 'package:labels_scanner/general_providers/camera_provider.dart';
 
 enum ScreenMode { liveFeed, gallery }
 
 class CameraView extends ConsumerStatefulWidget {
-  CameraView(
-      {Key? key,
-      required this.title,
-      required this.customPaint,
-      required this.onImage,
-      this.initialDirection = CameraLensDirection.back})
-      : super(key: key);
+  const CameraView({
+    Key? key,
+    required this.title,
+    required this.customPaint,
+    required this.onImage,
+    this.initialDirection = CameraLensDirection.back,
+  }) : super(key: key);
 
   final String title;
   final CustomPaint? customPaint;
   final Function(InputImage inputImage) onImage;
   final CameraLensDirection initialDirection;
-
-  final BarcodeScanner barcodeScanner = GoogleMlKit.vision.barcodeScanner();
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _CameraViewState();
@@ -39,33 +37,24 @@ class _CameraViewState extends ConsumerState<CameraView> {
   int _cameraIndex = 0;
   double zoomLevel = 0.0, minZoomLevel = 0.0, maxZoomLevel = 0.0;
 
+  late final List<CameraDescription>? mobileCameras;
+
   List<CameraDescription>? getMobileCameras() {
     return ref.watch(mobileCamerasPrefsDataProvider)?.mobileCameras;
   }
 
   @override
-  void initState() {
-    super.initState();
-/*
+  initState() {
     _imagePicker = ImagePicker();
-    List<CameraDescription>? mobileCameras = getMobileCameras();
-
-    for (var i = 0; i < mobileCameras!.length; i++) {
-      if (mobileCameras[i].lensDirection == widget.initialDirection) {
-        _cameraIndex = i;
-      }
-    }
-    _startLiveFeed();*/
+    super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    _imagePicker = ImagePicker();
-    List<CameraDescription>? mobileCameras = getMobileCameras();
+    mobileCameras = ref.watch(mobileCamerasPrefsDataProvider)!.mobileCameras;
 
     for (var i = 0; i < mobileCameras!.length; i++) {
-      if (mobileCameras[i].lensDirection == widget.initialDirection) {
+      if (mobileCameras![i].lensDirection == widget.initialDirection) {
         _cameraIndex = i;
       }
     }
@@ -102,7 +91,7 @@ class _CameraViewState extends ConsumerState<CameraView> {
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: GestureDetector(
-              onTap: _switchScreenMode,
+              onTap: _switchToTabsHome,
               child: Icon(
                 _mode == ScreenMode.liveFeed
                     ? Icons.photo_album_outlined
@@ -123,7 +112,6 @@ class _CameraViewState extends ConsumerState<CameraView> {
   Widget? _floatingActionButton() {
     if (_mode == ScreenMode.gallery) return null;
 
-    List<CameraDescription>? mobileCameras = getMobileCameras();
     if (mobileCameras!.length == 1) return null;
 
     return SizedBox(
@@ -226,7 +214,7 @@ class _CameraViewState extends ConsumerState<CameraView> {
       _processPickedFile(pickedFile);
     } else {
       if (kDebugMode) {
-        print('No image selected.');
+        //print('No image selected.');
       }
     }
     setState(() {});
@@ -243,8 +231,12 @@ class _CameraViewState extends ConsumerState<CameraView> {
     setState(() {});
   }
 
+  void _switchToTabsHome() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (_) => const AppTabsHome()));
+  }
+
   Future _startLiveFeed() async {
-    List<CameraDescription>? mobileCameras = getMobileCameras();
     final camera = mobileCameras![_cameraIndex];
 
     _controller = CameraController(
@@ -302,7 +294,6 @@ class _CameraViewState extends ConsumerState<CameraView> {
     final Size imageSize =
         Size(image.width.toDouble(), image.height.toDouble());
 
-    List<CameraDescription>? mobileCameras = getMobileCameras();
     final camera = mobileCameras![_cameraIndex];
 
     final imageRotation =

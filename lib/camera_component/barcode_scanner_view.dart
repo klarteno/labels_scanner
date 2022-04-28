@@ -1,5 +1,7 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+
 import 'camera_view.dart';
 import 'painters/barcode_detector_painter.dart';
 
@@ -11,10 +13,18 @@ class BarCodeScannerView extends StatefulWidget {
 }
 
 class _BarCodeScannerViewState extends State<BarCodeScannerView> {
-  BarcodeScanner barcodeScanner = GoogleMlKit.vision.barcodeScanner();
-
+  late BarcodeScanner barcodeScanner;
   bool isBusy = false;
   CustomPaint? customPaint;
+
+  late List<CameraDescription>? mobileCameras;
+
+  @override
+  void initState() {
+    barcodeScanner = GoogleMlKit.vision.barcodeScanner();
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -25,12 +35,11 @@ class _BarCodeScannerViewState extends State<BarCodeScannerView> {
   @override
   Widget build(BuildContext context) {
     return CameraView(
-      title: 'Barcode Scanner',
-      customPaint: customPaint,
-      onImage: (inputImage) {
-        processImage(inputImage);
-      },
-    );
+        title: 'Barcode Scanner',
+        customPaint: customPaint,
+        onImage: (inputImage) {
+          processImage(inputImage);
+        });
   }
 
   Future<void> processImage(InputImage inputImage) async {
@@ -38,7 +47,7 @@ class _BarCodeScannerViewState extends State<BarCodeScannerView> {
     isBusy = true;
     final List<Barcode> barcodes =
         await barcodeScanner.processImage(inputImage);
-    print('Found ${barcodes.length} barcodes');
+    //print('Found ${barcodes.length} barcodes');
     if (inputImage.inputImageData?.size != null &&
         inputImage.inputImageData?.imageRotation != null) {
       final painter = BarcodeDetectorPainter(

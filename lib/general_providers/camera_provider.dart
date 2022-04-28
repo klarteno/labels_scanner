@@ -4,7 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/classes/mobile_cameras_data.dart';
 
 final _mobileCamerasProvider = FutureProvider<List<CameraDescription>>(
-    (_) async => await availableCameras());
+    (_) async => await availableCameras(),
+    //TODO: tune future delay
+    argument:
+        Future.delayed(const Duration(milliseconds: 1000), () {})); //?????
 
 final mobileCamerasPrefsDataProvider =
     StateNotifierProvider<MobileCamerasDataNotifier, MobileCamerasData?>((ref) {
