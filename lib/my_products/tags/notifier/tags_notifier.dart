@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:labels_scanner/myshopify/providers/shopify_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:materials_products_repository/my_materials_repository.dart';
 import 'package:state_notifier/state_notifier.dart';
 
@@ -25,7 +25,7 @@ class TagsNotifier extends StateNotifier<TagsState> {
     }
   }
 
-  void onSearchChanged(String value) async {
+  Future<void> onSearchChanged(String value) async {
     state = state.copyWith(status: TagsStatus.loading);
     if (value.isEmpty) {
       final response = await _myShopifyRepository.getTags();

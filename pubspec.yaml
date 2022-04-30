@@ -41,7 +41,7 @@ dependencies:
   image_picker: ^0.8.5
   google_ml_kit:  ^0.7.3
 
-  provider: ^6.0.2
+  # provider: ^6.0.2
   fluro: ^2.0.3
   appwrite: ^4.0.2
   shared_preferences: ^2.0.13
@@ -52,7 +52,7 @@ dependencies:
   flutter_riverpod: ^1.0.3
   # hooks_riverpod: ^1.0.3
   riverpod_navigator: ^1.0.2
-  flutter_hooks: ^0.18.3
+  # flutter_hooks: ^0.18.3
 
   equatable: ^2.0.3
   cached_network_image: ^3.2.0

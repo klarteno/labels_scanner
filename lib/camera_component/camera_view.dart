@@ -232,8 +232,9 @@ class _CameraViewState extends ConsumerState<CameraView> {
   }
 
   void _switchToTabsHome() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (_) => const AppTabsHome()));
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const AppTabsHome()));
+    //.push(MaterialPageRoute(builder: (_) => const AppTabsHome()));
   }
 
   Future _startLiveFeed() async {

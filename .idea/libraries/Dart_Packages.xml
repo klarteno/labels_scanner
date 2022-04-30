@@ -667,13 +667,6 @@
             </list>
           </value>
         </entry>
-        <entry key="nested">
-          <value>
-            <list>
-              <option value="$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/nested-1.0.0/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="octo_image">
           <value>
             <list>
@@ -839,13 +832,6 @@
           <value>
             <list>
               <option value="$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/process-4.2.4/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="provider">
-          <value>
-            <list>
-              <option value="$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/provider-6.0.2/lib" />
             </list>
           </value>
         </entry>
@@ -1291,7 +1277,6 @@
       <root url="file://$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/meta-1.7.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/mime-1.0.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/mockito-5.1.0/lib" />
-      <root url="file://$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/nested-1.0.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/octo_image-1.0.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/package_config-2.0.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/package_info_plus-1.4.2/lib" />
@@ -1316,7 +1301,6 @@
       <root url="file://$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-2.1.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/pool-1.5.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/process-4.2.4/lib" />
-      <root url="file://$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/provider-6.0.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/pub_semver-2.1.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/pubspec_parse-1.2.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/quiver-3.0.1+1/lib" />
