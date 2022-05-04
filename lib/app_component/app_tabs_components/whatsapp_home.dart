@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:labels_scanner/app_component/app_tabs_components/pages/bar_codes_screen.dart';
 import 'package:labels_scanner/app_component/app_tabs_components/pages/notifications_screen.dart';
 import 'package:labels_scanner/app_component/app_tabs_components/pages/qr_codes_screen.dart';
-import 'package:labels_scanner/my_products/tags/tags.dart';
-import 'package:labels_scanner/my_products/tags/view/tags_page.dart';
+import 'package:labels_scanner/camera_component/barcode_scanner_view.dart';
 
 class WhatsAppHome extends StatefulWidget {
   const WhatsAppHome();
@@ -74,17 +75,20 @@ class _WhatsAppHomeState extends State<WhatsAppHome>
                 actions: <Widget>[
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (_) => TagsPage(key: _pageBarCodesKey2)));
-                      //.push(MaterialPageRoute(builder: (_) => const AppTabsHome()));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            //   builder: (_) => const BarCodeScannerView())
+                            builder: (_) => const ProviderScope(
+                                child: BarCodeScannerView())),
+                      );
                     },
                     child: const Icon(Icons.qr_code_scanner_outlined),
                   ),
-                  Icon(Icons.search),
-                  Padding(
+                  const Icon(Icons.search),
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5.0),
                   ),
-                  Icon(Icons.more_vert)
+                  const Icon(Icons.more_vert)
                 ],
               ),
             ];
@@ -102,7 +106,8 @@ class _WhatsAppHomeState extends State<WhatsAppHome>
             children: <Widget>[
               QrCodes(key: _pageQrCodesKey),
               //TagsPage(key: _pageBarCodesKey),
-              Tags(),
+              //Tags(),
+              BarCodes(key: _pageBarCodesKey2),
               Notifications(key: _pageNotificationsKey),
             ],
           ),

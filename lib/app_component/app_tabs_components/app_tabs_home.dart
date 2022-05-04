@@ -20,7 +20,7 @@ class AppTabsHome extends StatelessWidget {
         accentColor: const Color(0xff25D366),
       ),
       debugShowCheckedModeBanner: false,
-      home: WhatsAppHome(),
+      home: const WhatsAppHome(),
     );
   }
 }

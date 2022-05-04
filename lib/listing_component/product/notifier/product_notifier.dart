@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:materials_products_repository/my_materials_repository.dart';
 
 part 'product_state.dart';

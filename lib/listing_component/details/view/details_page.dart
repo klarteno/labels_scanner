@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:labels_scanner/listing_component/app/app.dart';
 import 'package:labels_scanner/listing_component/details/details.dart';
 import 'package:labels_scanner/listing_component/details/notifier/details_notifier.dart';
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final detailsProvider =
     StateNotifierProvider.autoDispose<DetailsNotifier, DetailsState>((ref) {

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:labels_scanner/app_component/app_tabs_components/app_tabs_home.dart';
 import 'package:labels_scanner/general_providers/camera_provider.dart';
 
 enum ScreenMode { liveFeed, gallery }
@@ -45,12 +44,12 @@ class _CameraViewState extends ConsumerState<CameraView> {
 
   @override
   initState() {
-    _imagePicker = ImagePicker();
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
+    _imagePicker = ImagePicker();
     mobileCameras = ref.watch(mobileCamerasPrefsDataProvider)!.mobileCameras;
 
     for (var i = 0; i < mobileCameras!.length; i++) {
@@ -59,7 +58,6 @@ class _CameraViewState extends ConsumerState<CameraView> {
       }
     }
     _startLiveFeed();
-
     super.didChangeDependencies();
   }
 
@@ -88,24 +86,21 @@ class _CameraViewState extends ConsumerState<CameraView> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 20.0),
-            child: GestureDetector(
-              onTap: _switchToTabsHome,
-              child: Icon(
-                _mode == ScreenMode.liveFeed
-                    ? Icons.photo_album_outlined
-                    : (Platform.isIOS
-                        ? Icons.photo_album_outlined
-                        : Icons.photo_album_outlined),
-              ),
-            ),
-          ),
+          if (_mode != ScreenMode.gallery && mobileCameras!.length == 2)
+            Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                    onTap: _switchScreenMode,
+                    child: IconButton(
+                        icon: const Icon(Icons.linked_camera_outlined),
+                        onPressed: () {
+                          _switchLiveCamera;
+                        }))),
         ],
       ),
       body: _body(),
-      floatingActionButton: _floatingActionButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: _floatingActionButton(),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -150,9 +145,9 @@ class _CameraViewState extends ConsumerState<CameraView> {
           CameraPreview(_controller!),
           if (widget.customPaint != null) widget.customPaint!,
           Positioned(
-            bottom: 100,
-            left: 50,
-            right: 50,
+            bottom: 40,
+            left: 70,
+            right: 70,
             child: Slider(
               value: zoomLevel,
               min: minZoomLevel,
@@ -229,12 +224,6 @@ class _CameraViewState extends ConsumerState<CameraView> {
       await _startLiveFeed();
     }
     setState(() {});
-  }
-
-  void _switchToTabsHome() {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const AppTabsHome()));
-    //.push(MaterialPageRoute(builder: (_) => const AppTabsHome()));
   }
 
   Future _startLiveFeed() async {

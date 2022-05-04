@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/../../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/camera-0.9.4+19/android" />
             <option value="$PROJECT_DIR$/../../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/device_info_plus-3.2.3/android" />
+            <option value="$PROJECT_DIR$/../../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_keyboard_visibility-5.2.0/android" />
             <option value="$PROJECT_DIR$/../../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.5/android" />
             <option value="$PROJECT_DIR$/../../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_web_auth-0.4.1/android" />
             <option value="$PROJECT_DIR$/../../../../../../../sdks/flutter/.pub-cache/hosted/pub.dartlang.org/google_ml_kit-0.7.3/android" />

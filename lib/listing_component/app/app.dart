@@ -1,7 +1,7 @@
-import 'package:labels_scanner/listing_component/app/app_router.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:labels_scanner/listing_component/app/app_router.dart';
 import 'package:materials_products_repository/my_materials_repository.dart';
 
 final myshopifyRepositoryProvider =

@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:labels_scanner/listing_component/app/app.dart';
 import 'package:labels_scanner/listing_component/product/notifier/product_notifier.dart';
 import 'package:labels_scanner/listing_component/product/product.dart';
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final productProvider =
     StateNotifierProvider.autoDispose<ProductNotifier, ProductState>((ref) {

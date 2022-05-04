@@ -34,6 +34,16 @@ class _TagsPageState extends ConsumerState<TagsPage> {
   @override
   Widget build(BuildContext context) {
     var tagNotifier = ref.watch(tagsProvider);
+    /*5
+    var _resss = userFamily3.create(4);
+    var ressss = userFamily3.call(8);
+    var taggss = ref.watch(_resss);
+    var gggg = taggss.value;
+    // taggss.when(data: data, error: error, loading: loading)
+
+    var searchedStrings = userFamily.call("argument");
+    var _taggss = ref.watch(searchedStrings);
+*/
     Future.delayed(Duration.zero, () => 5);
 /*
     Future.delayed(Duration.zero, () => ref.read(tagsProvider))

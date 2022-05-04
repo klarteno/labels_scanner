@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:labels_scanner/listing_component/app/app.dart';
 import 'package:labels_scanner/listing_component/app/app_router.dart';
 import 'package:labels_scanner/listing_component/tags/notifier/tags_notifier.dart';
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final tagsProvider = StateNotifierProvider<TagsNotifier, TagsState>((ref) {
   return TagsNotifier(ref.read(myshopifyRepositoryProvider));
