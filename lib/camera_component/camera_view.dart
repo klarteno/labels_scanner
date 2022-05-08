@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:labels_scanner/app_component/app_tabs_components/app_tabs_home.dart';
 import 'package:labels_scanner/general_providers/camera_provider.dart';
 
 enum ScreenMode { liveFeed, gallery }
@@ -90,12 +91,17 @@ class _CameraViewState extends ConsumerState<CameraView> {
             Padding(
                 padding: const EdgeInsets.only(right: 20.0),
                 child: GestureDetector(
-                    onTap: _switchScreenMode,
-                    child: IconButton(
-                        icon: const Icon(Icons.linked_camera_outlined),
-                        onPressed: () {
-                          _switchLiveCamera;
-                        }))),
+                  onTap: _switchLiveCamera,
+                  child: const Icon(Icons.linked_camera_outlined),
+                )),
+          if (_mode != ScreenMode.gallery)
+            Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                    onTap: _navigateBack,
+                    child: const Icon(
+                        Icons.arrow_back_rounded // .app_shortcut_rounded
+                        ))),
         ],
       ),
       body: _body(),
@@ -113,6 +119,7 @@ class _CameraViewState extends ConsumerState<CameraView> {
         height: 70.0,
         width: 70.0,
         child: FloatingActionButton(
+          heroTag: "btn2",
           child: Icon(
             Platform.isIOS
                 ? Icons.flip_camera_ios_outlined
@@ -224,6 +231,16 @@ class _CameraViewState extends ConsumerState<CameraView> {
       await _startLiveFeed();
     }
     setState(() {});
+  }
+
+  void _navigateBack() async {
+    //await _stopLiveFeed();
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+          // builder: (_) => const BarCodeScannerView()),
+          builder: (_) => const ProviderScope(child: AppTabsHome())),
+    );
   }
 
   Future _startLiveFeed() async {

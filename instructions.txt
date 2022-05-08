@@ -2,3 +2,5 @@ flutter pub global run detective
 
 hive_generator
 flutter packages pub run build_runner build
+
+ run in terminal: flutter pub run build_runner watch --delete-conflicting-outputs

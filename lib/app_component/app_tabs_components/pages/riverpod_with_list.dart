@@ -11,7 +11,7 @@ class RiverpodWithList extends StatelessWidget {
       child: PageView(
         children: [
           //_View1(),
-          _View2(),
+          //_View2(),
         ],
       ),
     );

@@ -42,7 +42,6 @@ class RiverpodListitems extends ConsumerWidget {
     final modelList = ref.watch(ContainerListState.provider);
     return Scaffold(
       appBar: AppBar(
-        title: Text('ListView of Containers'),
         actions: [
           IconButton(
             icon: Icon(Icons.add),

@@ -8,10 +8,11 @@ import 'package:labels_scanner/camera_component/model_barcodes/db_models/barcode
 import 'package:labels_scanner/camera_component/model_barcodes/db_models/db_interface.dart';
 import 'package:labels_scanner/camera_component/model_barcodes/db_models/scanner_form_details.dart';
 import 'package:labels_scanner/camera_component/providers/providers_of_scanned_codes.dart';
-import 'package:snackbar_extension/snackbar_extension.dart';
 
 class CompleteForm extends ConsumerStatefulWidget {
-  const CompleteForm({Key? key}) : super(key: key);
+  const CompleteForm({Key? key, required this.scannedData}) : super(key: key);
+
+  final BarcodeScannedDetails scannedData;
 
   @override
   ConsumerState<CompleteForm> createState() {
@@ -24,13 +25,13 @@ class CompleteFormState extends ConsumerState<CompleteForm> {
   bool readOnly = false;
   bool showSegmentedControl = true;
   final _formKey = GlobalKey<FormBuilderState>();
-  bool _isQrCode = false;
   bool _materialTypeHasError = false;
 
   var materialTypeOptions = ['Concrete', 'Steel', 'Tool'];
 
   String code_type = 'default';
-  String codeDisplayValue = '';
+
+  late bool isQrCode;
 
   void _onChanged(dynamic val) => debugPrint(val.toString());
 
@@ -47,16 +48,14 @@ class CompleteFormState extends ConsumerState<CompleteForm> {
 
   @override
   Widget build(BuildContext context) {
-    var _barcode = ref.watch(barcodesProvider);
-    var vert = Future.delayed(Duration.zero, () => ref.read(barcodesProvider));
-
-    code_type = _barcode.barCodeData.barcodeValueFormat.toString();
-    if (code_type == 'qrCode') {
-      _isQrCode = true;
+    Future.delayed(Duration.zero, () => ref.read(barcodesProvider));
+    BarcodeScannedDetails _barcode = widget.scannedData;
+    if (_barcode.barCodeData.barcodeValueFormat.toString().toLowerCase() ==
+        'qrcode') {
+      isQrCode = true;
     } else {
-      _isQrCode = false;
+      isQrCode = false;
     }
-    codeDisplayValue = _barcode.barCodeData.barcodeValueDisplayValue.toString();
 
     return Padding(
       padding: const EdgeInsets.all(10),
@@ -76,7 +75,8 @@ class CompleteFormState extends ConsumerState<CompleteForm> {
 
                   FormBuilderDateTimePicker(
                     name: 'appointment_time',
-                    initialValue: DateTime.now(),
+                    initialValue:
+                        widget.scannedData.scannerFormDetails?.appointmentTime,
                     inputType: InputType.time,
                     decoration: InputDecoration(
                       labelText: 'Appointment Time',
@@ -95,8 +95,10 @@ class CompleteFormState extends ConsumerState<CompleteForm> {
                     name: 'date_range',
                     initialValue: DateTimeRange(
                         start: DateTime.now(), end: DateTime.now()),
-                    firstDate: DateTime(2020),
-                    lastDate: DateTime(2030),
+                    firstDate: widget
+                        .scannedData.scannerFormDetails!.firstDateDateRange,
+                    lastDate: widget
+                        .scannedData.scannerFormDetails!.lastDateDateRange,
                     format: DateFormat('yyyy-MM-dd'),
                     initialEntryMode: DatePickerEntryMode.calendar,
                     onChanged: _onChanged,
@@ -121,7 +123,8 @@ class CompleteFormState extends ConsumerState<CompleteForm> {
                     onChanged: _onChanged,
                     min: 0.0,
                     max: 30.0,
-                    initialValue: 1.0,
+                    initialValue:
+                        widget.scannedData.scannerFormDetails!.numberOfThings,
                     divisions: 60,
                     activeColor: Colors.red,
                     inactiveColor: Colors.pink[100],
@@ -136,7 +139,9 @@ class CompleteFormState extends ConsumerState<CompleteForm> {
                     onChanged: _onChanged,
                     min: 0.0,
                     max: 10000.0,
-                    initialValue: const RangeValues(400, 700),
+                    initialValue: RangeValues(
+                        widget.scannedData.scannerFormDetails!.firstPriceRange,
+                        widget.scannedData.scannerFormDetails!.lastPriceRange),
                     divisions: 20000,
                     activeColor: Colors.red,
                     inactiveColor: Colors.pink[100],
@@ -146,7 +151,8 @@ class CompleteFormState extends ConsumerState<CompleteForm> {
                   FormBuilderDropdown<String>(
                     // autovalidate: true,
                     name: 'material_type',
-                    initialValue: materialTypeOptions.first.toString(),
+                    initialValue:
+                        widget.scannedData.scannerFormDetails!.materialType,
                     decoration:
                         const InputDecoration(labelText: 'Material Type'),
                     // initialValue: 'Male',
@@ -246,21 +252,14 @@ class CompleteFormState extends ConsumerState<CompleteForm> {
                 Expanded(
                   child: MaterialButton(
                     color: Theme.of(context).colorScheme.secondary,
-                    elevation: 10,
-                    autofocus: true,
-                    focusColor: Colors.indigo,
                     onPressed: () {
                       print('savinggggggggggg');
-
                       if (_formKey.currentState?.saveAndValidate() ?? false) {
                         debugPrint(_formKey.currentState?.value.toString());
                         Map<String, dynamic>? savedData =
                             _formKey.currentState?.value;
                         print(savedData?.keys);
-                        /*for (var key in (savedData?.keys)!) {
-                          print(key.toString() + ' ');
-                          print(savedData![key]);
-                        }*/
+
                         var _scannerFormDetails = ScannerFormDetails(
                             appointmentTime: savedData!['appointment_time'],
                             firstDateDateRange:
@@ -277,43 +276,13 @@ class CompleteFormState extends ConsumerState<CompleteForm> {
 
                         _barcode.scannerFormDetails = _scannerFormDetails;
 
-                        if (_barcode.barCodeData.barcodeValueFormat
-                                .toString()
-                                .toLowerCase() ==
-                            'qrcode') {
+                        if (isQrCode) {
                           scannedQrcodesBox.put(_barcode.key, _barcode);
                         } else {
                           scannedBarcodesBox.put(_barcode.key, _barcode);
                         }
-                        /*SnackBarExtension.register(
-                          name: "SavingConfirmation",
-                          snackBar: const SnackBar(
-                            content: Text("Save Complete"),
-                          ),
-                        );*/
-
-                        SnackBarExtension.of(context, "SavingConfirmation")
-                            .setContent(const Text("Saving Done"));
-
-                        SnackBarExtension.of(context, "SavingConfirmation")
-                            .setBackgroundColor(Colors.blue);
-                        SnackBarExtension.of(context, "SavingConfirmation")
-                            .setBehavior(SnackBarBehavior.floating);
-                        SnackBarExtension.of(context, "SavingConfirmation")
-                            .setDismissDirection(DismissDirection.down);
-
-                        /* SnackBarExtension.of(context, "SavingConfirmation")
-                            .show();
-*/
-                        SnackBarExtension.of(context, "SavingConfirmation")
-                            .showTill(
-                          content: const Text("Show Till Function"),
-                          run: () async {
-                            await Future.delayed(const Duration(seconds: 2));
-                          },
-                        );
-
                         // save to hivedb because after saving the app might be destroyed
+
                       } else {
                         debugPrint(_formKey.currentState?.value.toString());
                         debugPrint('validation failed');
@@ -330,33 +299,14 @@ class CompleteFormState extends ConsumerState<CompleteForm> {
                   child: OutlinedButton(
                     onPressed: () {
                       _formKey.currentState?.reset();
-                      /* SnackBarExtension.register(
-                        name: "ResetConfirmation",
-                        snackBar: const SnackBar(
-                          content: Text("Save Complete"),
-                        ),
-                      );*/
-                      SnackBarExtension.of(context, "ResetConfirmation")
-                          .setContent(const Text("Reset Done"));
-                      SnackBarExtension.of(context, "ResetConfirmation")
-                          .setBackgroundColor(Colors.black54);
-                      SnackBarExtension.of(context, "ResetConfirmation")
-                          .setBehavior(SnackBarBehavior.floating);
-                      SnackBarExtension.of(context, "ResetConfirmation")
-                          .setDismissDirection(DismissDirection.horizontal);
-                      SnackBarExtension.of(context, "ResetConfirmation").show();
-
-                      SnackBarExtension.of(context, "ResetConfirmation")
-                          .showTill(
-                        content: const Text("Show Till Function"),
-                        run: () async {
-                          await Future.delayed(const Duration(seconds: 2));
-                        },
-                      );
+                      /*
+                   * after modifiyng restore all the form fields with the previouse item values
+                   *
+                   * */
                     },
                     // color: Theme.of(context).colorScheme.secondary,
                     child: Text(
-                      'Reset',
+                      'Restore Item',
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.secondary),
                     ),

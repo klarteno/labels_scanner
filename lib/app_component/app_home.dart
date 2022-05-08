@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:labels_scanner/camera_component/barcode_scanner_view.dart';
 import 'package:labels_scanner/my_products/tags/view/tags_page.dart';
-import 'package:labels_scanner/pages/codes_searching.dart';
 import 'package:labels_scanner/pages/bar_codes.dart';
+import 'package:labels_scanner/pages/codes_searching.dart';
 
 class AppHome extends StatefulWidget {
-  const AppHome();
+  const AppHome({Key? key}) : super(key: key);
 
   @override
   _AppHomeState createState() => _AppHomeState();

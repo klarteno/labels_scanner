@@ -35,6 +35,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.4
+  font_awesome_flutter: ^10.1.0
   camera: ^0.9.4+19
   story_view: ^0.13.2
 
@@ -45,7 +46,7 @@ dependencies:
   fluro: ^2.0.3
   appwrite: ^4.0.2
   shared_preferences: ^2.0.13
-  adaptive_dialog: ^1.5.0+1
+  adaptive_dialog: ^1.6.2+1
   flutter_svg: ^1.0.3
   uuid: ^3.0.6
   flutter_slidable: ^1.2.0
@@ -70,16 +71,25 @@ dependencies:
   form_builder_extra_fields: ^7.1.0
 
   # flutter_localizations:
+  json_annotation: ^4.5.0
+  meta: ^1.7.0
 
+  # hive: ^2.1.0
+  hive_flutter: ^1.1.0
 
+  path_provider: ^2.0.9
+  snackbar_extension: ^0.0.1
 
   materials_products_repository:
     path: packages/materials_products_repository
   freezed_annotation: ^2.0.1
 
-
-
 dev_dependencies:
+  build_runner: ^2.1.10
+  freezed: ^2.0.2
+  json_serializable: ^6.2.0
+  hive_generator: ^1.1.2
+
   flutter_test:
     sdk: flutter
   integration_test:
@@ -92,14 +102,6 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.4
-  # build_runner: ^2.1.10
-
-
-  build_runner:
-  freezed:
-
-
-
 
 # run in terminal: flutter pub run build_runner watch --delete-conflicting-outputs
 

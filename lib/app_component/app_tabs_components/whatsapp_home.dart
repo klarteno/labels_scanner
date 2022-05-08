@@ -6,7 +6,7 @@ import 'package:labels_scanner/app_component/app_tabs_components/pages/qr_codes_
 import 'package:labels_scanner/camera_component/barcode_scanner_view.dart';
 
 class WhatsAppHome extends StatefulWidget {
-  const WhatsAppHome();
+  const WhatsAppHome({Key? key}) : super(key: key);
 
   @override
   _WhatsAppHomeState createState() => _WhatsAppHomeState();
@@ -26,9 +26,10 @@ class _WhatsAppHomeState extends State<WhatsAppHome>
   @override
   void initState() {
     super.initState();
+
     _tabController = TabController(vsync: this, initialIndex: 1, length: 3);
     _tabController.addListener(() {
-      if (_tabController.index == 0) {
+      if (_tabController.index == 2) {
         showFab = true;
       } else {
         showFab = false;
@@ -38,6 +39,11 @@ class _WhatsAppHomeState extends State<WhatsAppHome>
         _selectedIndex = _tabController.index;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -77,16 +83,19 @@ class _WhatsAppHomeState extends State<WhatsAppHome>
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                            //   builder: (_) => const BarCodeScannerView())
+                            // builder: (_) => const BarCodeScannerView()),
                             builder: (_) => const ProviderScope(
                                 child: BarCodeScannerView())),
                       );
                     },
                     child: const Icon(Icons.qr_code_scanner_outlined),
                   ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  ),
                   const Icon(Icons.search),
                   const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5.0),
+                    padding: EdgeInsets.symmetric(horizontal: 25.0),
                   ),
                   const Icon(Icons.more_vert)
                 ],
@@ -114,6 +123,7 @@ class _WhatsAppHomeState extends State<WhatsAppHome>
         ),
         floatingActionButton: showFab
             ? FloatingActionButton(
+                heroTag: "btn1",
                 backgroundColor: Theme.of(context).accentColor,
                 child: const Icon(
                   Icons.message,
