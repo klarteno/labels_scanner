@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:labels_scanner/app_component/app_tabs_components/pages/bar_codes_screen.dart';
 import 'package:labels_scanner/app_component/app_tabs_components/pages/notifications_screen.dart';
 import 'package:labels_scanner/app_component/app_tabs_components/pages/qr_codes_screen.dart';
+import 'package:labels_scanner/app_component/app_tabs_components/pages/searching/search_widget.dart';
 import 'package:labels_scanner/camera_component/barcode_scanner_view.dart';
+import 'package:labels_scanner/camera_component/model_barcodes/db_models/db_interface.dart';
 
 class WhatsAppHome extends StatefulWidget {
   const WhatsAppHome({Key? key}) : super(key: key);
@@ -93,7 +95,29 @@ class _WhatsAppHomeState extends State<WhatsAppHome>
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25.0),
                   ),
-                  const Icon(Icons.search),
+                  IconButton(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {
+                        if (_selectedIndex == 0) {
+                          showSearch(
+                            context: context,
+                            delegate: SearchWidget(
+                                boxScannedCodes:
+                                    DbInterface.getDbQrcodesDisplay(),
+                                boxScannedCodesDismissed:
+                                    DbInterface.getDbQrcodesDismissed()),
+                          );
+                        } else if (_selectedIndex == 1) {
+                          showSearch(
+                            context: context,
+                            delegate: SearchWidget(
+                                boxScannedCodes:
+                                    DbInterface.getDbBarcodesDisplay(),
+                                boxScannedCodesDismissed:
+                                    DbInterface.getDbBarcodesDismissed()),
+                          );
+                        } else {}
+                      }),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25.0),
                   ),

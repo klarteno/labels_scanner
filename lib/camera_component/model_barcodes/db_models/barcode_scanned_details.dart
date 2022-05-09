@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:labels_scanner/camera_component/model_barcodes/db_models/position_wrapper.dart';
 import 'package:labels_scanner/camera_component/model_barcodes/db_models/scanner_form_details.dart';
 
 import 'bar_code_wrapper.dart';
@@ -27,5 +28,8 @@ class BarcodeScannedDetails {
   late ScannerFormDetails? scannerFormDetails;
 
   @HiveField(20)
+  late PositionData? positionData;
+
+  @HiveField(21)
   var key = UniqueKey().toString();
 }

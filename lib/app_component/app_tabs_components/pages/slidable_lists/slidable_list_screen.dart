@@ -1,14 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:labels_scanner/app_component/app_tabs_components/pages/slidable_lists/update_item.dart';
+import 'package:labels_scanner/app_component/app_tabs_components/pages/slidable_lists/slidable_item.dart';
 import 'package:labels_scanner/app_component/app_tabs_components/pages/slidable_lists/utils_slidable.dart';
 
 import '../../../../camera_component/model_barcodes/db_models/barcode_scanned_details.dart';
 
-class SlidableListScreen extends ConsumerWidget {
+class SlidableListScreen extends StatelessWidget {
   const SlidableListScreen(
       {Key? key,
       required this.boxScannedCodes,
@@ -19,8 +16,8 @@ class SlidableListScreen extends ConsumerWidget {
   final Box<BarcodeScannedDetails> boxScannedCodesDismissed;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final direction = AppState.of(context)!.direction;
+  Widget build(BuildContext context) {
+    final Axis direction = AppState.of(context)!.direction;
 
     return Scaffold(
       body: ValueListenableBuilder(
@@ -32,22 +29,22 @@ class SlidableListScreen extends ConsumerWidget {
             );
           } else {
             return ListView.builder(
+              physics: const BouncingScrollPhysics(),
               scrollDirection: flipAxis(direction),
               itemCount: box.length,
               itemBuilder: (context, index) {
                 var currentBox = box;
-
                 BarcodeScannedDetails scannedData = currentBox.getAt(index)!;
 
-                print(currentBox.length);
+                //ValueKey valueKey = ValueKey(scannedData.key.toString());
 
-                String nameLabel = scannedData
-                        .barCodeData.barcodeValueDisplayValue +
-                    '  ' +
-                    scannedData.barCodeData.barcodeValueFormat.toLowerCase();
+                return SlidableItem(
+                    direction: direction,
+                    scannedData: scannedData,
+                    boxScannedCodes: boxScannedCodes,
+                    boxScannedCodesDismissed: boxScannedCodesDismissed);
 
-                ValueKey valueKey = ValueKey(scannedData.key.toString());
-
+                /*
                 return Slidable(
                   key: valueKey,
                   direction: direction,
@@ -140,6 +137,8 @@ class SlidableListScreen extends ConsumerWidget {
                   ),
                   child: Tile(color: Colors.lime, text: nameLabel),
                 );
+
+  */
               },
             );
           }

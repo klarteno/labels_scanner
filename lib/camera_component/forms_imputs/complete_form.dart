@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:labels_scanner/camera_component/model_barcodes/db_models/barcode_scanned_details.dart';
 import 'package:labels_scanner/camera_component/model_barcodes/db_models/db_interface.dart';
 import 'package:labels_scanner/camera_component/model_barcodes/db_models/scanner_form_details.dart';
+import 'package:labels_scanner/camera_component/model_barcodes/location_position.dart';
 import 'package:labels_scanner/camera_component/providers/providers_of_scanned_codes.dart';
 import 'package:snackbar_extension/snackbar_extension.dart';
 
@@ -245,85 +246,106 @@ class CompleteFormState extends ConsumerState<CompleteForm> {
               children: <Widget>[
                 Expanded(
                   child: MaterialButton(
-                    color: Theme.of(context).colorScheme.secondary,
-                    elevation: 10,
-                    autofocus: true,
-                    focusColor: Colors.indigo,
-                    onPressed: () {
-                      print('savinggggggggggg');
+                      color: Theme.of(context).colorScheme.secondary,
+                      elevation: 10,
+                      autofocus: true,
+                      focusColor: Colors.indigo,
+                      onPressed: () {
+                        print('savinggggggggggg');
 
-                      if (_formKey.currentState?.saveAndValidate() ?? false) {
-                        debugPrint(_formKey.currentState?.value.toString());
-                        Map<String, dynamic>? savedData =
-                            _formKey.currentState?.value;
-                        print(savedData?.keys);
-                        /*for (var key in (savedData?.keys)!) {
+                        if (_formKey.currentState?.saveAndValidate() ?? false) {
+                          debugPrint(_formKey.currentState?.value.toString());
+                          Map<String, dynamic>? savedData =
+                              _formKey.currentState?.value;
+                          print(savedData?.keys);
+                          /*for (var key in (savedData?.keys)!) {
                           print(key.toString() + ' ');
                           print(savedData![key]);
                         }*/
-                        var _scannerFormDetails = ScannerFormDetails(
-                            appointmentTime: savedData!['appointment_time'],
-                            firstDateDateRange:
-                                (savedData['date_range'] as DateTimeRange)
-                                    .start,
-                            lastDateDateRange:
-                                (savedData['date_range'] as DateTimeRange).end,
-                            numberOfThings: savedData['number_of_things'],
-                            firstPriceRange:
-                                (savedData['price_range'] as RangeValues).start,
-                            lastPriceRange:
-                                (savedData['price_range'] as RangeValues).end,
-                            materialType: savedData['material_type']);
+                          var _scannerFormDetails = ScannerFormDetails(
+                              appointmentTime: savedData!['appointment_time'],
+                              firstDateDateRange:
+                                  (savedData['date_range'] as DateTimeRange)
+                                      .start,
+                              lastDateDateRange:
+                                  (savedData['date_range'] as DateTimeRange)
+                                      .end,
+                              numberOfThings: savedData['number_of_things'],
+                              firstPriceRange:
+                                  (savedData['price_range'] as RangeValues)
+                                      .start,
+                              lastPriceRange:
+                                  (savedData['price_range'] as RangeValues).end,
+                              materialType: savedData['material_type']);
 
-                        _barcode.scannerFormDetails = _scannerFormDetails;
+                          _barcode.scannerFormDetails = _scannerFormDetails;
 
-                        if (_barcode.barCodeData.barcodeValueFormat
-                                .toString()
-                                .toLowerCase() ==
-                            'qrcode') {
-                          scannedQrcodesBox.put(_barcode.key, _barcode);
-                        } else {
-                          scannedBarcodesBox.put(_barcode.key, _barcode);
-                        }
-                        /*SnackBarExtension.register(
-                          name: "SavingConfirmation",
-                          snackBar: const SnackBar(
-                            content: Text("Save Complete"),
-                          ),
-                        );*/
+                          if (_barcode.barCodeData.barcodeValueFormat
+                                  .toString()
+                                  .toLowerCase() ==
+                              'qrcode') {
+                            LocationInterface.processScannedItem(
+                                barcode: _barcode, box: scannedQrcodesBox);
+                          } else {
+                            LocationInterface.processScannedItem(
+                                barcode: _barcode, box: scannedBarcodesBox);
+                          }
 
-                        SnackBarExtension.of(context, "SavingConfirmation")
-                            .setContent(const Text("Saving Done"));
+                          SnackBarExtension.register(
+                            name: "SavingConfirmation",
+                            snackBar: const SnackBar(
+                              content: Text("Save Complete"),
+                            ),
+                          );
 
-                        SnackBarExtension.of(context, "SavingConfirmation")
-                            .setBackgroundColor(Colors.blue);
-                        SnackBarExtension.of(context, "SavingConfirmation")
-                            .setBehavior(SnackBarBehavior.floating);
-                        SnackBarExtension.of(context, "SavingConfirmation")
-                            .setDismissDirection(DismissDirection.down);
+                          SnackBarExtension.of(context, "SavingConfirmation")
+                              .setContent(const Text("Saving Done"));
 
-                        /* SnackBarExtension.of(context, "SavingConfirmation")
+                          SnackBarExtension.of(context, "SavingConfirmation")
+                              .setBackgroundColor(Colors.blue);
+                          SnackBarExtension.of(context, "SavingConfirmation")
+                              .setBehavior(SnackBarBehavior.floating);
+                          SnackBarExtension.of(context, "SavingConfirmation")
+                              .setDismissDirection(DismissDirection.down);
+
+                          /* SnackBarExtension.of(context, "SavingConfirmation")
                             .show();
 */
-                        SnackBarExtension.of(context, "SavingConfirmation")
-                            .showTill(
-                          content: const Text("Show Till Function"),
-                          run: () async {
-                            await Future.delayed(const Duration(seconds: 2));
-                          },
-                        );
+                          SnackBarExtension.of(context, "SavingConfirmation")
+                              .showTill(
+                            content: const Text("Show Till Function"),
+                            run: () async {
+                              await Future.delayed(const Duration(seconds: 2));
+                            },
+                          );
 
-                        // save to hivedb because after saving the app might be destroyed
-                      } else {
-                        debugPrint(_formKey.currentState?.value.toString());
-                        debugPrint('validation failed');
-                      }
-                    },
-                    child: const Text(
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                                  'Saved Saved Saved Saved Saved Saved Saved')));
+                          print('Saved Saved Saved Saved Saved Saved Saved');
+                          print('Saved Saved Saved Saved Saved Saved Saved');
+
+                          /*bool form_saved = true;
+ when save make it true when completing form make it false and then:
+  child: true? const Text(
+                      'Saved',
+                      style: TextStyle(color: Colors.white),
+                    ):const Text(
                       'Save',
                       style: TextStyle(color: Colors.white),
                     ),
-                  ),
+ */
+
+                          // save to hivedb because after saving the app might be destroyed
+                        } else {
+                          debugPrint(_formKey.currentState?.value.toString());
+                          debugPrint('validation failed');
+                        }
+                      },
+                      child: const Text(
+                        'Save',
+                        style: TextStyle(color: Colors.white),
+                      )),
                 ),
                 const SizedBox(width: 20),
                 Expanded(

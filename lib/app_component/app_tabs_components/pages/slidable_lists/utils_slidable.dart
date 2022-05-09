@@ -1,33 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class SlideAction extends StatelessWidget {
-  const SlideAction({
-    Key? key,
-    required this.color,
-    required this.icon,
-    this.flex = 1,
-  }) : super(key: key);
-
-  final Color color;
-  final IconData icon;
-  final int flex;
-
-  @override
-  Widget build(BuildContext context) {
-    return SlidableAction(
-      flex: flex,
-      backgroundColor: color,
-      foregroundColor: Colors.white,
-      onPressed: (_) {
-        print(icon);
-      },
-      icon: icon,
-      label: 'hello',
-    );
-  }
-}
-
 class Tile extends StatelessWidget {
   const Tile({
     Key? key,

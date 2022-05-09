@@ -63,6 +63,8 @@ dependencies:
 
   sliding_up_panel: ^2.0.0+1
 
+  geolocator: ^8.2.1
+  permission_handler: ^9.2.0
   copy_with_extension_gen: ^4.0.1
   # riverpod_navigation: ^0.2.1-prerelease
 
